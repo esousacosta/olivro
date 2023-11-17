@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { BookListComponent } from './book-list/book-list.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, BookListComponent],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot([{ path: 'books', component: BookListComponent }]),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
