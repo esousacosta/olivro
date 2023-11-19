@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Book } from 'src/data/book';
+import { FetchBookDataService } from '../services/fetch-book-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   // selector: 'olv-book-list',
@@ -7,41 +9,19 @@ import { Book } from 'src/data/book';
   styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent {
-  books: Book[] = [
-    {
-      title: 'A Odisséia',
-      author: 'Homero',
-      price: 'R$ 53,00',
-    },
-    {
-      title: 'A Ilíada',
-      author: 'Homero',
-      price: 'R$ 50,00',
-    },
-    {
-      title: 'A Ilíada',
-      author: 'Homero',
-      price: 'R$ 50,00',
-    },
-    {
-      title: 'A Ilíada',
-      author: 'Homero',
-      price: 'R$ 50,00',
-    },
-    {
-      title: 'A Ilíada',
-      author: 'Homero',
-      price: 'R$ 50,00',
-    },
-    {
-      title: 'A Ilíada',
-      author: 'Homero',
-      price: 'R$ 50,00',
-    },
-    {
-      title: 'A Ilíada',
-      author: 'Homero',
-      price: 'R$ 50,00',
-    },
-  ];
+  constructor(private bookService: FetchBookDataService) {}
+
+  errorMessage: string = '';
+  private _sub!: Subscription;
+
+  books!: Book[];
+
+  ngOnInit() {
+    this._sub = this.bookService.getBooks().subscribe({
+      next: (books) => {
+        this.books = books;
+      },
+      error: (err) => (this.errorMessage = err),
+    });
+  }
 }
