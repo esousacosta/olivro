@@ -2,10 +2,9 @@
 <div class="row">
     <form class="form-inline">
     <div class="input-group">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button (click)="contactServer()" class="btn btn-outline-success my-2 my-sm-0" type="button">Go!</button> 
+        <input #searchInput class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button (click)="contactServer(searchInput.value)" class="btn btn-outline-success my-2 my-sm-0" type="button">Go!</button> 
     </div>
-    <div (click)="contactServer()">Message: {{message}}</div>
     </form>
 </div>
 </nav>

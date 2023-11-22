@@ -8,7 +8,7 @@ import { Observable, Subject, catchError, tap, throwError } from 'rxjs';
 })
 export class FetchBookDataService {
   private bookUrl: string = 'api/books/books.json';
-  private serverUrl: string = 'http://localhost:8080/books/frança';
+  private serverUrl: string = 'http://localhost:8080/books/';
 
   bookData$ = new Subject<Book[]>();
 
@@ -21,8 +21,8 @@ export class FetchBookDataService {
     );
   }
 
-  getData(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.serverUrl).pipe(
+  getData(iBookTitle: string): Observable<Book[]> {
+    return this.http.get<Book[]>(this.serverUrl + iBookTitle).pipe(
       tap((data) => {
         // console.log('Service fetched books: ', JSON.stringify(data));
         this.bookData$.next(data);
