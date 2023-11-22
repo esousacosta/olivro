@@ -14,10 +14,10 @@ export class BookListComponent {
   errorMessage: string = '';
   private _sub!: Subscription;
 
-  @Input() books!: Book[];
+  books!: Book[];
 
   ngOnInit() {
-    this._sub = this.bookService.getBooks().subscribe({
+    this._sub = this.bookService.bookData$.subscribe({
       next: (books) => {
         this.books = books;
       },

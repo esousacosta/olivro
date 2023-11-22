@@ -11,7 +11,6 @@ import { Book } from 'src/data/book';
 export class NavbarComponent {
   constructor(private bookService: FetchBookDataService) {}
 
-  @Output() newBookDataEvent = new EventEmitter<Book[]>();
   errorMessage: string = '';
   message: string = '';
   private _sub!: Subscription;
@@ -19,7 +18,9 @@ export class NavbarComponent {
   contactServer(): void {
     console.log("We're here!");
     this._sub = this.bookService.getData().subscribe({
-      next: (books) => this.newBookDataEvent.emit(books),
+      next: (_) => {
+        console.log('getData call successful!');
+      },
       error: (err) => (this.errorMessage = err),
     });
   }

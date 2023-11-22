@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../../data/book';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, Subject, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +9,8 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 export class FetchBookDataService {
   private bookUrl: string = 'api/books/books.json';
   private serverUrl: string = 'http://localhost:8080/books/frança';
+
+  bookData$ = new Subject<Book[]>();
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +23,10 @@ export class FetchBookDataService {
 
   getData(): Observable<Book[]> {
     return this.http.get<Book[]>(this.serverUrl).pipe(
-      tap((data) => console.log('Now: ', JSON.stringify(data))),
+      tap((data) => {
+        // console.log('Service fetched books: ', JSON.stringify(data));
+        this.bookData$.next(data);
+      }),
       catchError(this.handleError)
     );
   }
