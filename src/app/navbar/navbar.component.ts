@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FetchBookDataService } from '../services/fetch-book-data.service';
 import { Observable, Subscription } from 'rxjs';
+import { Book } from 'src/data/book';
 
 @Component({
   selector: 'olv-navbar',
@@ -10,6 +11,7 @@ import { Observable, Subscription } from 'rxjs';
 export class NavbarComponent {
   constructor(private bookService: FetchBookDataService) {}
 
+  @Output() newBookDataEvent = new EventEmitter<Book[]>();
   errorMessage: string = '';
   message: string = '';
   private _sub!: Subscription;
@@ -17,7 +19,7 @@ export class NavbarComponent {
   contactServer(): void {
     console.log("We're here!");
     this._sub = this.bookService.getData().subscribe({
-      next: (message) => (this.message = message),
+      next: (books) => this.newBookDataEvent.emit(books),
       error: (err) => (this.errorMessage = err),
     });
   }

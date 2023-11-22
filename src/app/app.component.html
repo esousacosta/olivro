@@ -1,8 +1,17 @@
 <div class="container">
-  <olv-navbar></olv-navbar>
+  <olv-navbar (newBookDataEvent)="books=$event"></olv-navbar>
   <div class="card">
     <div class="card-header">
-      Lista de livros
+      Lista de livros:
+        <div class="card col-sm-4" *ngFor="let book of books">
+            <div class="card-header">
+                {{book.title}}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{book.authors}}</li>
+                <li class="list-group-item">{{book.price}}</li>
+            </ul>
+        </div>
     </div>
     <div class="card-body">
       <router-outlet></router-outlet>

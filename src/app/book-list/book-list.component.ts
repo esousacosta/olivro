@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Book } from 'src/data/book';
 import { FetchBookDataService } from '../services/fetch-book-data.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ export class BookListComponent {
   errorMessage: string = '';
   private _sub!: Subscription;
 
-  books!: Book[];
+  @Input() books!: Book[];
 
   ngOnInit() {
     this._sub = this.bookService.getBooks().subscribe({

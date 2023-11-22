@@ -8,7 +8,7 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 })
 export class FetchBookDataService {
   private bookUrl: string = 'api/books/books.json';
-  private serverUrl: string = 'http://localhost:8080/ping';
+  private serverUrl: string = 'http://localhost:8080/books/frança';
 
   constructor(private http: HttpClient) {}
 
@@ -19,8 +19,8 @@ export class FetchBookDataService {
     );
   }
 
-  getData(): Observable<string> {
-    return this.http.get<string>(this.serverUrl).pipe(
+  getData(): Observable<Book[]> {
+    return this.http.get<Book[]>(this.serverUrl).pipe(
       tap((data) => console.log('Now: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
