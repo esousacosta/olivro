@@ -15,7 +15,7 @@ export class NavbarComponent {
   message: string = '';
   private _sub!: Subscription;
 
-  contactServer(iBookTitle: string): void {
+  bookSearch(iBookTitle: string): void {
     console.log("We're here!");
     this._sub = this.bookService.getData(iBookTitle).subscribe({
       next: (_) => {
