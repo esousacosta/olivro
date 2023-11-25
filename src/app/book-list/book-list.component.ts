@@ -15,11 +15,27 @@ export class BookListComponent {
   private _sub!: Subscription;
 
   books!: Book[];
+  uniqueBooks!: Book[];
+
+  private filterDuplicateBooks(iBooks: Book[]): Book[] {
+    let books: Book[] = [];
+    // clean up duplicates here
+    let bookIsbns: Set<string> = new Set([]);
+    iBooks.forEach((iBook) => {
+      if (bookIsbns.has(iBook.isbn)) {
+        return;
+      }
+      bookIsbns.add(iBook.isbn);
+      books.push(iBook);
+    });
+    return books;
+  }
 
   ngOnInit() {
     this._sub = this.bookService.bookData$.subscribe({
       next: (books) => {
         this.books = books;
+        this.uniqueBooks = this.filterDuplicateBooks(books);
       },
       error: (err) => (this.errorMessage = err),
     });

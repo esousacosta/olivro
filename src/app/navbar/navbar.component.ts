@@ -16,7 +16,6 @@ export class NavbarComponent {
   private _sub!: Subscription;
 
   bookSearch(iBookTitle: string): void {
-    console.log("We're here!");
     this._sub = this.bookService.getData(iBookTitle).subscribe({
       next: (_) => {
         console.log('getData call successful!');
