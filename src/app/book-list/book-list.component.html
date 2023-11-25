@@ -1,4 +1,5 @@
 <div class="container">
+    <div *ngIf="books" [hidden]="books.length != 0" class="alert alert-danger">No book found for "{{searchCriteria}}" search criteria!</div>
     <div class="row">
         <div class="card col-sm-4" *ngFor="let book of uniqueBooks">
             <img src="{{book.imgUrl}}" class="card-img-top" alt="book's cover">

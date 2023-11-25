@@ -12,6 +12,7 @@ export class BookListComponent {
   constructor(private bookService: FetchBookDataService) {}
 
   errorMessage: string = '';
+  searchCriteria: string = '';
   private _sub!: Subscription;
 
   books!: Book[];
@@ -19,7 +20,6 @@ export class BookListComponent {
 
   private filterDuplicateBooks(iBooks: Book[]): Book[] {
     let books: Book[] = [];
-    // clean up duplicates here
     let bookIsbns: Set<string> = new Set([]);
     iBooks.forEach((iBook) => {
       if (bookIsbns.has(iBook.isbn)) {
@@ -36,6 +36,7 @@ export class BookListComponent {
       next: (books) => {
         this.books = books;
         this.uniqueBooks = this.filterDuplicateBooks(books);
+        this.searchCriteria = this.bookService.searchCriteria;
       },
       error: (err) => (this.errorMessage = err),
     });

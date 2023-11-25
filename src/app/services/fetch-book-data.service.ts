@@ -10,7 +10,8 @@ export class FetchBookDataService {
   private bookUrl: string = 'api/books/books.json';
   private serverUrl: string = 'http://localhost:8080/books/';
 
-  bookData$ = new Subject<Book[]>();
+  bookData$: Subject<Book[]> = new Subject<Book[]>();
+  searchCriteria: string = '';
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +23,7 @@ export class FetchBookDataService {
   }
 
   getData(iBookTitle: string): Observable<Book[]> {
+    this.searchCriteria = iBookTitle;
     return this.http.get<Book[]>(this.serverUrl + iBookTitle).pipe(
       tap((data) => {
         // console.log('Service fetched books: ', JSON.stringify(data));
