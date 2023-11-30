@@ -6,7 +6,7 @@ import { Book } from 'src/models/book';
 @Component({
   selector: 'olv-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
   constructor(private bookService: FetchBookDataService) {}

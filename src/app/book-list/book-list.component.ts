@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 @Component({
   // selector: 'olv-book-list',
   templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.css'],
+  styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent {
   constructor(private bookService: FetchBookDataService) {}
