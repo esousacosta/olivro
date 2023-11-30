@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Book } from 'src/data/book';
+import { Book } from 'src/models/book';
 import { FetchBookDataService } from '../services/fetch-book-data.service';
 import { Subscription } from 'rxjs';
 

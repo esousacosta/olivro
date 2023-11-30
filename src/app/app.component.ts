@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Book } from 'src/data/book';
+import { Book } from 'src/models/book';
 
 @Component({
   selector: 'olv-root',
