@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FetchBookDataService } from '../services/fetch-book-data.service';
+import { FetchBookDataService } from '../../services/fetch-book-data.service';
 import { Observable, Subscription } from 'rxjs';
 import { Book } from 'src/models/book';
 

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Book } from 'src/models/book';
-import { FetchBookDataService } from '../services/fetch-book-data.service';
+import { FetchBookDataService } from '../../services/fetch-book-data.service';
 import { Subscription } from 'rxjs';
 
 @Component({
