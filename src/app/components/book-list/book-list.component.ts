@@ -19,6 +19,7 @@ export class BookListComponent {
   uniqueBooks!: Book[];
 
   private filterDuplicateBooks(iBooks: Book[]): Book[] {
+    if (!iBooks) return [];
     let books: Book[] = [];
     let bookIsbns: Set<string> = new Set([]);
     iBooks.forEach((iBook) => {
