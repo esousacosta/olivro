@@ -42,6 +42,13 @@ export class BookPageComponent {
             );
           },
         });
+        if (this.bookService.latestSearchResults) {
+          console.log(this.bookService.latestSearchResults);
+          this.books = JSON.parse(
+            JSON.stringify(this.bookService.latestSearchResults)
+          );
+          this.filteredBooks = this.filterByIsbn(isbn);
+        }
       },
       error: (err) => {
         console.log('An error ocurred retrieving the routing parameters');

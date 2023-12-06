@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material/material.module';
 import { BookPageComponent } from './components/book-page/book-page.component';
+import { FetchBookDataService } from './services/fetch-book-data.service';
 
 const routes: Route[] = [
   { path: 'books', component: BookListComponent },
@@ -31,7 +32,7 @@ const routes: Route[] = [
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [FetchBookDataService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

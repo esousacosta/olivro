@@ -12,6 +12,7 @@ export class FetchBookDataService {
   private serverUrl: string = 'http://localhost:8080/books/';
 
   bookData$: Subject<Book[]> = new Subject<Book[]>();
+  latestSearchResults!: Book[];
   searchCriteria: string = '';
 
   constructor(private http: HttpClient) {}
@@ -29,6 +30,7 @@ export class FetchBookDataService {
       tap((data) => {
         // console.log('Service fetched books: ', JSON.stringify(data));
         this.bookData$.next(data);
+        this.latestSearchResults = data;
       }),
       catchError(this.handleError)
     );

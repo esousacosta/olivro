@@ -2,8 +2,8 @@
     <div *ngIf="books" [hidden]="books.length != 0" class="alert alert-danger">No book found for "{{searchCriteria}}" search criteria!</div>
     <div class="row">
         <div class="card col-sm-4 book-card" *ngFor="let book of uniqueBooks">
-            <img src="{{book.imgUrl}}" class="card-img-top" alt="book's cover">
-            <div class="card-header">
+            <img src="{{book.imgUrl}}" class="card-img-top" alt="book's cover" routerLink="/results/{{book.isbn}}">
+            <div class="card-header" routerLink="/results/{{book.isbn}}">
                 {{book.title}}
             </div>
             <ul class="list-group list-group-flush">

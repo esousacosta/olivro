@@ -40,5 +40,12 @@ export class BookListComponent {
       },
       error: (err) => (this.errorMessage = err),
     });
+    if (this.bookService.latestSearchResults) {
+      console.log(this.bookService.latestSearchResults);
+      this.books = JSON.parse(
+        JSON.stringify(this.bookService.latestSearchResults)
+      );
+      this.uniqueBooks = this.filterDuplicateBooks(this.books);
+    }
   }
 }
