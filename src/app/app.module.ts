@@ -13,7 +13,7 @@ import { BookPageComponent } from './components/book-page/book-page.component';
 import { FetchBookDataService } from './services/fetch-book-data.service';
 
 const routes: Route[] = [
-  { path: 'books', component: BookListComponent },
+  { path: 'results', component: BookListComponent },
   { path: 'results/:isbn', component: BookPageComponent },
 ];
 

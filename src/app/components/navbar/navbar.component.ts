@@ -20,7 +20,7 @@ export class NavbarComponent {
   private _sub!: Subscription;
 
   private navigateToResultsPage() {
-    this.router.navigate(['/books']);
+    this.router.navigate(['/results']);
   }
 
   bookSearch(iBookTitle: string): void {
