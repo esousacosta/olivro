@@ -1,7 +1,8 @@
 <div class="container">
-    <div *ngIf="books" [hidden]="books.length != 0" class="alert alert-danger">No book found for "{{searchCriteria}}" search criteria!</div>
+    <div *ngIf="books" [hidden]="books.length != 0" class="alert alert-danger">No book found for "{{searchCriteria}}"
+        search criteria!</div>
     <div class="row">
-        <div class="card col-sm-4 book-card" *ngFor="let book of uniqueBooks">
+        <div class="card col-sm-4 book-card" *ngFor="let book of dataSourceConn$ | async">
             <img src="{{book.imgUrl}}" class="card-img-top" alt="book's cover" routerLink="/results/{{book.isbn}}">
             <div class="card-header" routerLink="/results/{{book.isbn}}">
                 {{book.title}}
@@ -11,5 +12,8 @@
                 <li class="list-group-item">{{book.price}}</li>
             </ul>
         </div>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
     </div>
 </div>
