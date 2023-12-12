@@ -23,11 +23,12 @@
 <table mat-table [dataSource]="booksFromCompetitors" *ngIf="booksFromCompetitors">
     <ng-container matColumnDef="library">
         <th mat-header-cell *matHeaderCellDef>Livraria</th>
-        <td mat-cell *matCellDef="let book">{{book.library}}</td>
+        <td mat-cell class="libraryName" *matCellDef="let book">{{book.library}}</td>
     </ng-container>
     <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef>Preço</th>
-        <td mat-cell *matCellDef="let book">{{book.price}}</td>
+        <td mat-cell *matCellDef="let book">
+            <h2>R$ {{book.price}}</h2></td>
     </ng-container>
     <ng-container matColumnDef="offer">
         <th mat-header-cell *matHeaderCellDef>Oferta</th>
