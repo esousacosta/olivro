@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class FetchBookDataService {
   private bookUrl: string = 'api/books/books.json';
-  private serverUrl: string = 'http://localhost:8080/books/';
+  private serverUrl: string = 'http://localhost:8080/results/';
 
   bookData$: Subject<Book[]> = new Subject<Book[]>();
   latestSearchResults!: Book[];

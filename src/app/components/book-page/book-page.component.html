@@ -1,4 +1,4 @@
-<div *ngIf="!filteredBooks"> 
+<div *ngIf="!filteredBooks">
     <mat-spinner></mat-spinner>
 </div>
 <mat-card class="book-card" *ngIf="filteredBooks">
@@ -9,10 +9,10 @@
     <img mat-card-image src="{{filteredBooks.at(0)?.imgUrl}}" alt="Photo of a Shiba Inu">
     <mat-card-content>
         <p>
-{{filteredBooks.at(0)?.library}}
+            {{filteredBooks.at(0)?.library}}
         </p>
         <p>
-R$ {{filteredBooks.at(0)?.price}}
+            R$ {{filteredBooks.at(0)?.price}}
         </p>
     </mat-card-content>
     <mat-card-actions>
@@ -20,3 +20,22 @@ R$ {{filteredBooks.at(0)?.price}}
         <button mat-button>SHARE</button>
     </mat-card-actions>
 </mat-card>
+<table mat-table [dataSource]="booksFromCompetitors" *ngIf="booksFromCompetitors">
+    <ng-container matColumnDef="library">
+        <th mat-header-cell *matHeaderCellDef>Livraria</th>
+        <td mat-cell *matCellDef="let book">{{book.library}}</td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Preço</th>
+        <td mat-cell *matCellDef="let book">{{book.price}}</td>
+    </ng-container>
+    <ng-container matColumnDef="offer">
+        <th mat-header-cell *matHeaderCellDef>Oferta</th>
+        <td mat-cell *matCellDef="let book">
+            <button mat-raised-button color="primary">
+                <a href='{{book.pageUrl}}'>Ver oferta</a></button>
+            </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
