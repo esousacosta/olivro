@@ -1,42 +1,50 @@
 <div *ngIf="!filteredBooks">
-    <mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </div>
 <mat-card class="book-card" *ngIf="filteredBooks">
-    <mat-card-header>
-        <mat-card-title>{{filteredBooks.at(0)?.title}}</mat-card-title>
-        <mat-card-subtitle>{{filteredBooks.at(0)?.authors}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="{{filteredBooks.at(0)?.imgUrl}}" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-        <p>
-            {{filteredBooks.at(0)?.library}}
-        </p>
-        <p>
-            R$ {{filteredBooks.at(0)?.price}}
-        </p>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-    </mat-card-actions>
+  <mat-card-header>
+    <mat-card-title>{{ filteredBooks.at(0)?.title }}</mat-card-title>
+    <mat-card-subtitle>{{ filteredBooks.at(0)?.authors }}</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    mat-card-image
+    src="{{ filteredBooks.at(0)?.imgUrl }}"
+    alt="Photo of a Shiba Inu"
+  />
+  <mat-card-content>
+    <p>
+      {{ filteredBooks.at(0)?.library }}
+    </p>
+    <p>R$ {{ filteredBooks.at(0)?.price }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
 </mat-card>
-<table mat-table [dataSource]="booksFromCompetitors" *ngIf="booksFromCompetitors">
-    <ng-container matColumnDef="library">
-        <th mat-header-cell *matHeaderCellDef>Livraria</th>
-        <td mat-cell class="libraryName" *matCellDef="let book">{{book.library}}</td>
-    </ng-container>
-    <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef>Preço</th>
-        <td mat-cell *matCellDef="let book">
-            <h2>R$ {{book.price}}</h2></td>
-    </ng-container>
-    <ng-container matColumnDef="offer">
-        <th mat-header-cell *matHeaderCellDef>Oferta</th>
-        <td mat-cell *matCellDef="let book">
-            <button mat-raised-button color="primary">
-                <a href='{{book.pageUrl}}'>Ver oferta</a></button>
-            </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<table mat-table [dataSource]="filteredBooks" *ngIf="filteredBooks">
+  <ng-container matColumnDef="library">
+    <th mat-header-cell *matHeaderCellDef>Livraria</th>
+    <td mat-cell class="libraryName" *matCellDef="let book">
+      {{ book.library }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Preço</th>
+    <td mat-cell *matCellDef="let book">
+      <h2>R$ {{ book.price }}</h2>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="offer">
+    <th mat-header-cell *matHeaderCellDef>Oferta</th>
+    <td mat-cell *matCellDef="let book">
+      <a href="{{ book.pageUrl }}">
+        <button mat-raised-button color="primary">
+          Ver oferta <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </a>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

@@ -6,7 +6,7 @@ import { FetchBookDataService } from 'src/app/services/fetch-book-data.service';
 import { Book } from 'src/models/book';
 
 @Component({
-  selector: 'olv-book-page',
+  // selector: 'olv-book-page',
   templateUrl: './book-page.component.html',
   styleUrls: ['./book-page.component.scss'],
 })
@@ -20,7 +20,6 @@ export class BookPageComponent {
   filteredBooks!: Book[];
   isbn: String = '';
 
-  booksFromCompetitors: Book[] = this.filteredBooks;
   displayedColumns: String[] = ['library', 'price', 'offer'];
 
   filterByIsbn(isbn: String): Book[] {
@@ -38,7 +37,6 @@ export class BookPageComponent {
           next: (books) => {
             this.books = books;
             this.filteredBooks = this.filterByIsbn(isbn);
-            this.booksFromCompetitors = this.filteredBooks;
           },
           error: (err) => {
             console.log(
@@ -51,7 +49,6 @@ export class BookPageComponent {
             JSON.stringify(this.bookService.latestSearchResults)
           );
           this.filteredBooks = this.filterByIsbn(isbn);
-          this.booksFromCompetitors = this.filteredBooks;
         }
       },
       error: (err) => {

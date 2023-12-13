@@ -1,0 +1,18 @@
+<mat-sidenav-container class="olv-sidebar-container">
+  <mat-sidenav opened mode="side">
+    <!-- This is a workaround for a known-issue with
+    mat-inner-drawer-container: https://github.com/angular/components/issues/13983 -->
+    <div class="olv-sidebar-real">
+      Preço (min - max)
+      <mat-slider class="slider-price-filter">
+        <input matSliderStartThumb />
+        <input matSliderEndThumb />
+      </mat-slider>
+      <div>Meu chapa</div>
+    </div></mat-sidenav
+  >
+  <mat-sidenav-content>
+    <olv-book-list></olv-book-list>
+  </mat-sidenav-content>
+  Implicit main content
+</mat-sidenav-container>

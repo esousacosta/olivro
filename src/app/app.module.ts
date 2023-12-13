@@ -11,9 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material/material.module';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { FetchBookDataService } from './services/fetch-book-data.service';
+import { ResultsSidebarComponent } from './components/results-sidebar/results-sidebar.component';
 
 const routes: Route[] = [
-  { path: 'results', component: BookListComponent },
+  { path: 'results', component: ResultsSidebarComponent },
   { path: 'results/:isbn', component: BookPageComponent },
 ];
 
@@ -23,6 +24,7 @@ const routes: Route[] = [
     BookListComponent,
     NavbarComponent,
     BookPageComponent,
+    ResultsSidebarComponent,
   ],
   imports: [
     BrowserModule,

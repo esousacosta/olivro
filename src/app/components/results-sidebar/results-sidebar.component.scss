@@ -1,0 +1,21 @@
+.olv-sidebar-container {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.olv-sidebar-real {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+
+  > mat-slider {
+    align-self: center;
+  }
+}
+
+.slider-price-filter {
+  width: 70%;
+}
