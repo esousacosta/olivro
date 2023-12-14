@@ -3,12 +3,27 @@
     <!-- This is a workaround for a known-issue with
     mat-inner-drawer-container: https://github.com/angular/components/issues/13983 -->
     <div class="olv-sidebar-real">
-      Preço (min - max)
-      <mat-slider class="slider-price-filter">
-        <input matSliderStartThumb />
-        <input matSliderEndThumb />
+      <h2 class="slider-header">Preço (min - max)</h2>
+      <mat-slider
+        class="slider-price-filter"
+        [min]="sliderMinValue"
+        [max]="sliderMaxValue"
+      >
+        <input matSliderStartThumb [(ngModel)]="minSelectedPrice" />
+        <input matSliderEndThumb [(ngModel)]="maxSelectedPrice" />
       </mat-slider>
-      <div>Meu chapa</div>
+      <div class="slider-input-container">
+        <mat-form-field class="slider-form-field">
+          <mat-label>Preço mín.</mat-label>
+          <input matInput type="number" [(ngModel)]="minSelectedPrice" />
+        </mat-form-field>
+        -
+        <mat-form-field class="slider-form-field">
+          <mat-label>Preço max.</mat-label>
+          <input matInput type="number" [(ngModel)]="maxSelectedPrice" />
+        </mat-form-field>
+      </div>
+      <div>{{ minSelectedPrice }} - {{ maxSelectedPrice }}</div>
     </div></mat-sidenav
   >
   <mat-sidenav-content>
