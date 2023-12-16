@@ -38,8 +38,16 @@
       <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 4)"
         >> R$ 200</mat-checkbox
       >
-    </div></mat-sidenav
-  >
+      <!-- Libraries filters -->
+      <h2 class="slider-header">Livraria</h2>
+      <mat-checkbox
+        color="primary"
+        *ngFor="let libraryCheckBox of libraryCheckBoxes"
+      >
+        {{ libraryCheckBox.libraryName }}</mat-checkbox
+      >
+    </div>
+  </mat-sidenav>
   <mat-sidenav-content>
     <olv-book-list></olv-book-list>
   </mat-sidenav-content>

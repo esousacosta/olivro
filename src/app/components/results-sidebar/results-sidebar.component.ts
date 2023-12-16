@@ -1,10 +1,35 @@
 import { Component, Input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
-declare class CheckBox {
+interface CheckBox {
+  checked: boolean;
+}
+
+class PriceCheckBox implements CheckBox {
   checked: boolean;
   min: number;
   max: number;
+  constructor(iMin: number, iMax: number, iChecked: boolean = false) {
+    this.min = iMin;
+    this.max = iMax;
+    this.checked = iChecked;
+  }
+}
+
+class LibraryCheckBox implements CheckBox {
+  libraryName: string;
+  checked: boolean;
+  constructor(iLibraryName: string, iChecked: boolean = false) {
+    (this.libraryName = iLibraryName), (this.checked = iChecked);
+  }
+}
+
+enum PriceCategory {
+  zeroToFifty = 0,
+  fiftyToHundred,
+  hundredToHundredFifty,
+  hundredFiftyToTwoHundred,
+  twoHundredAndMore,
 }
 
 @Component({
@@ -19,9 +44,12 @@ export class ResultsSidebarComponent {
   private _sliderMaxValue: number = 500;
   private _minSelectedPrice: number = 0;
   private _maxSelectedPrice: number = 500;
-  private _priceCheckBoxes: Map<number, CheckBox> = new Map<number, CheckBox>([
+  private _priceCheckBoxes: Map<PriceCategory, PriceCheckBox> = new Map<
+    number,
+    PriceCheckBox
+  >([
     [
-      0,
+      PriceCategory.zeroToFifty,
       {
         checked: false,
         min: 0,
@@ -29,7 +57,7 @@ export class ResultsSidebarComponent {
       },
     ],
     [
-      1,
+      PriceCategory.fiftyToHundred,
       {
         checked: false,
         min: 50,
@@ -37,7 +65,7 @@ export class ResultsSidebarComponent {
       },
     ],
     [
-      2,
+      PriceCategory.hundredToHundredFifty,
       {
         checked: false,
         min: 100,
@@ -45,7 +73,7 @@ export class ResultsSidebarComponent {
       },
     ],
     [
-      3,
+      PriceCategory.hundredFiftyToTwoHundred,
       {
         checked: false,
         min: 150,
@@ -53,7 +81,7 @@ export class ResultsSidebarComponent {
       },
     ],
     [
-      4,
+      PriceCategory.twoHundredAndMore,
       {
         checked: false,
         min: 200,
@@ -61,6 +89,12 @@ export class ResultsSidebarComponent {
       },
     ],
   ]);
+  libraryCheckBoxes: LibraryCheckBox[] = [
+    new LibraryCheckBox('Livraria BSM'),
+    new LibraryCheckBox('Livraria Senso Incomum'),
+    new LibraryCheckBox('Livraria Comunicação e Política'),
+    new LibraryCheckBox('Livraria PH Vox'),
+  ];
 
   get sliderMinValue(): number {
     return this._sliderMinValue;
@@ -84,14 +118,19 @@ export class ResultsSidebarComponent {
     this._maxSelectedPrice = iMaxValue;
   }
 
-  filterPriceByCheckbox($event: MatCheckboxChange, iId: number) {
+  filterPriceByCheckbox($event: MatCheckboxChange, iId: PriceCategory) {
     if ($event.checked) {
-      console.log($event);
       // how to modify the checked attribute
       // of the value in the map?
-      this._priceCheckBoxes.get(iId);
+      const checkBox = this._priceCheckBoxes.get(iId);
+      if (checkBox) {
+        checkBox.checked = true;
+      }
     } else {
-      console.log('Unchecked');
+      const checkBox = this._priceCheckBoxes.get(iId);
+      if (checkBox) {
+        checkBox.checked = false;
+      }
     }
     console.log(this._priceCheckBoxes);
   }
