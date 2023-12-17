@@ -15,7 +15,6 @@ export class BookListComponent {
 
   errorMessage: string = '';
   searchCriteria: string = '';
-  private _sub!: Subscription;
 
   books!: Book[];
   uniqueBooks!: Book[];
@@ -48,8 +47,12 @@ export class BookListComponent {
     this.dataSource.paginator = this.paginator;
   }
 
+  setUpResultsData(iBooks: Book[]) {
+    this._setUpResultsData(iBooks);
+  }
+
   ngOnInit() {
-    this._sub = this.bookService.bookData$.subscribe({
+    this.bookService.bookData$.subscribe({
       next: (books) => {
         this.books = books;
         this.uniqueBooks = this.filterDuplicateBooks(books);

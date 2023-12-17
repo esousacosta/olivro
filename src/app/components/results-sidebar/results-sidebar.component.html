@@ -4,11 +4,7 @@
     mat-inner-drawer-container: https://github.com/angular/components/issues/13983 -->
     <div class="olv-sidebar-real">
       <h2 class="slider-header">Preço (min - max)</h2>
-      <mat-slider
-        class="slider-price-filter"
-        [min]="sliderMinValue"
-        [max]="sliderMaxValue"
-      >
+      <mat-slider class="slider-price-filter" [min]="sliderMinValue" [max]="sliderMaxValue">
         <input matSliderStartThumb [(ngModel)]="minSelectedPrice" />
         <input matSliderEndThumb [(ngModel)]="maxSelectedPrice" />
       </mat-slider>
@@ -23,29 +19,19 @@
           <input matInput type="number" [(ngModel)]="maxSelectedPrice" />
         </mat-form-field>
       </div>
-      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 0)"
-        >R$ 0 - R$ 49,99</mat-checkbox
-      >
-      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 1)"
-        >R$ 50 - R$ 99,99</mat-checkbox
-      >
-      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 2)"
-        >R$ 100 - R$ 149,99</mat-checkbox
-      >
-      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 3)"
-        >R$ 150 - R$ 199,99</mat-checkbox
-      >
-      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 4)"
-        >> R$ 200</mat-checkbox
-      >
+      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 0)">R$ 0 - R$ 49,99</mat-checkbox>
+      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 1)">R$ 50 - R$ 99,99</mat-checkbox>
+      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 2)">R$ 100 - R$ 149,99</mat-checkbox>
+      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 3)">R$ 150 - R$ 199,99</mat-checkbox>
+      <mat-checkbox color="primary" (change)="filterPriceByCheckbox($event, 4)">> R$ 200</mat-checkbox>
       <!-- Libraries filters -->
       <h2 class="slider-header">Livraria</h2>
-      <mat-checkbox
-        color="primary"
-        *ngFor="let libraryCheckBox of libraryCheckBoxes"
-      >
-        {{ libraryCheckBox.libraryName }}</mat-checkbox
-      >
+      <mat-checkbox color="primary" *ngFor="let libraryCheckBox of libraryCheckBoxes"
+        (change)="libraryCheckBox.checked = !libraryCheckBox.checked">
+        {{ libraryCheckBox.libraryName }}</mat-checkbox>
+      <button mat-raised-button class="sidebar-button" color="primary" (click)="applyFilters()">
+        Aplicar filtros <mat-icon>arrow_forward</mat-icon>
+      </button>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

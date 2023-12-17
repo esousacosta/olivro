@@ -1,5 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import {
+  BookFilterService,
+  PriceCategory,
+  PriceRange,
+} from 'src/app/services/book-filter.service';
+import { BookListComponent } from '../book-list/book-list.component';
 
 interface CheckBox {
   checked: boolean;
@@ -7,11 +13,9 @@ interface CheckBox {
 
 class PriceCheckBox implements CheckBox {
   checked: boolean;
-  min: number;
-  max: number;
+  priceRange: PriceRange;
   constructor(iMin: number, iMax: number, iChecked: boolean = false) {
-    this.min = iMin;
-    this.max = iMax;
+    this.priceRange = { min: iMin, max: iMax };
     this.checked = iChecked;
   }
 }
@@ -24,20 +28,16 @@ class LibraryCheckBox implements CheckBox {
   }
 }
 
-enum PriceCategory {
-  zeroToFifty = 0,
-  fiftyToHundred,
-  hundredToHundredFifty,
-  hundredFiftyToTwoHundred,
-  twoHundredAndMore,
-}
-
 @Component({
   selector: 'olv-results-sidebar',
   templateUrl: './results-sidebar.component.html',
   styleUrls: ['./results-sidebar.component.scss'],
 })
 export class ResultsSidebarComponent {
+  constructor(private bookFilter: BookFilterService) {}
+
+  @ViewChild(BookListComponent) bookListComponent!: BookListComponent;
+
   @Input()
   private _sliderMinValue: number = 0;
   @Input()
@@ -52,40 +52,35 @@ export class ResultsSidebarComponent {
       PriceCategory.zeroToFifty,
       {
         checked: false,
-        min: 0,
-        max: 50,
+        priceRange: { min: 0, max: 50 },
       },
     ],
     [
       PriceCategory.fiftyToHundred,
       {
         checked: false,
-        min: 50,
-        max: 100,
+        priceRange: { min: 50, max: 100 },
       },
     ],
     [
       PriceCategory.hundredToHundredFifty,
       {
         checked: false,
-        min: 100,
-        max: 150,
+        priceRange: { min: 100, max: 150 },
       },
     ],
     [
       PriceCategory.hundredFiftyToTwoHundred,
       {
         checked: false,
-        min: 150,
-        max: 200,
+        priceRange: { min: 150, max: 200 },
       },
     ],
     [
       PriceCategory.twoHundredAndMore,
       {
         checked: false,
-        min: 200,
-        max: 500,
+        priceRange: { min: 200, max: 500 },
       },
     ],
   ]);
@@ -120,8 +115,6 @@ export class ResultsSidebarComponent {
 
   filterPriceByCheckbox($event: MatCheckboxChange, iId: PriceCategory) {
     if ($event.checked) {
-      // how to modify the checked attribute
-      // of the value in the map?
       const checkBox = this._priceCheckBoxes.get(iId);
       if (checkBox) {
         checkBox.checked = true;
@@ -133,5 +126,17 @@ export class ResultsSidebarComponent {
       }
     }
     console.log(this._priceCheckBoxes);
+  }
+
+  applyFilters() {
+    this.bookListComponent.setUpResultsData(
+      this.bookFilter.applyFilters(
+        this.bookListComponent.uniqueBooks,
+        [],
+        this.libraryCheckBoxes
+          .filter((libraryCheckBok) => libraryCheckBok.checked)
+          .map((libraryCheckBox) => libraryCheckBox.libraryName)
+      )
+    );
   }
 }
