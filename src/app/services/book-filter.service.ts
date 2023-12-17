@@ -27,11 +27,29 @@ export class PriceRange {
 export class BookFilterService {
   constructor() {}
 
+  filterDuplicateBooks(iBooks: Book[]): Book[] {
+    if (!iBooks) return [];
+    let books: Book[] = [];
+    let bookIsbns: Set<string> = new Set([]);
+    iBooks.forEach((iBook) => {
+      if (bookIsbns.has(iBook.isbn)) {
+        return;
+      }
+      bookIsbns.add(iBook.isbn);
+      books.push(iBook);
+    });
+    return books;
+  }
+
   applyFilters(
     iBooks: Book[],
     iPriceCategories: PriceRange[],
     iLibraryNames: string[]
   ): Book[] {
+    if (!iLibraryNames.length) {
+      console.log(iBooks);
+      return this.filterDuplicateBooks(iBooks);
+    }
     let filteredBooks: Book[] = [];
     iLibraryNames.forEach((libraryName) => {
       filteredBooks.push(

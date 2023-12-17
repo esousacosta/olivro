@@ -131,7 +131,7 @@ export class ResultsSidebarComponent {
   applyFilters() {
     this.bookListComponent.setUpResultsData(
       this.bookFilter.applyFilters(
-        this.bookListComponent.uniqueBooks,
+        this.bookListComponent.books,
         [],
         this.libraryCheckBoxes
           .filter((libraryCheckBok) => libraryCheckBok.checked)

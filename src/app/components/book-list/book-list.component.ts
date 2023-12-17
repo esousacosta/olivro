@@ -4,6 +4,7 @@ import { FetchBookDataService } from '../../services/fetch-book-data.service';
 import { Observable, Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { BookFilterService } from 'src/app/services/book-filter.service';
 
 @Component({
   selector: 'olv-book-list',
@@ -11,27 +12,16 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent {
-  constructor(private bookService: FetchBookDataService) {}
+  constructor(
+    private bookService: FetchBookDataService,
+    private bookFilterService: BookFilterService
+  ) {}
 
   errorMessage: string = '';
   searchCriteria: string = '';
 
   books!: Book[];
   uniqueBooks!: Book[];
-
-  private filterDuplicateBooks(iBooks: Book[]): Book[] {
-    if (!iBooks) return [];
-    let books: Book[] = [];
-    let bookIsbns: Set<string> = new Set([]);
-    iBooks.forEach((iBook) => {
-      if (bookIsbns.has(iBook.isbn)) {
-        return;
-      }
-      bookIsbns.add(iBook.isbn);
-      books.push(iBook);
-    });
-    return books;
-  }
 
   dataSource: MatTableDataSource<Book> = new MatTableDataSource<Book>(
     this.uniqueBooks
@@ -55,7 +45,7 @@ export class BookListComponent {
     this.bookService.bookData$.subscribe({
       next: (books) => {
         this.books = books;
-        this.uniqueBooks = this.filterDuplicateBooks(books);
+        this.uniqueBooks = this.bookFilterService.filterDuplicateBooks(books);
         this._setUpResultsData(this.uniqueBooks);
         this.searchCriteria = this.bookService.searchCriteria;
       },
@@ -65,7 +55,9 @@ export class BookListComponent {
       this.books = JSON.parse(
         JSON.stringify(this.bookService.latestSearchResults)
       );
-      this.uniqueBooks = this.filterDuplicateBooks(this.books);
+      this.uniqueBooks = this.bookFilterService.filterDuplicateBooks(
+        this.books
+      );
       this._setUpResultsData(this.uniqueBooks);
     }
   }
