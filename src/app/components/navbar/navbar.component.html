@@ -1,19 +1,33 @@
-<nav class="navbar navbar-light bg-light justify-content-center">
-    <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
-        Categorias
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>Ficção</button>
-        <button mat-menu-item>Não Ficção</button>
-    </mat-menu>
-    <div class="row">
-        <form class="form-inline" (ngSubmit)="bookSearch(searchInput.value)" (keyup.enter)="$event.preventDefault()">
-            <div class="input-group">
-                <input #searchInput class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button (click)="bookSearch(searchInput.value)" 
-                    class="btn btn-outline-success my-2 my-sm-0" type="button">Go!</button>
-            </div>
-        </form>
+<nav class="navbar navbar-dark bg-dark">
+    <a class=" navbar-brand" href="#">
+        <img class="brand-image" src="../../../assets/charutoRealOficial.png">
+        Olivro
+    </a>
+    <div class="search-group">
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+            Categorias
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Ficção</button>
+            <button mat-menu-item>Não Ficção</button>
+        </mat-menu>
+        <div class="row">
+            <form class="form-inline" (ngSubmit)="bookSearch(searchInput.value)"
+                (keyup.enter)="$event.preventDefault()">
+                <div class="input-group">
+                    <input #searchInput class="form-control mr-sm-2" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button (click)="bookSearch(searchInput.value)" class="btn btn-outline-success my-2 my-sm-0"
+                        type="button">Go!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="user-group">
+        <a href="#">
+            <mat-icon aria-hidden="false" aria-label="Account icon with user silhouette"
+                class="user-icon">account_circle</mat-icon>
+        </a>
     </div>
 </nav>
