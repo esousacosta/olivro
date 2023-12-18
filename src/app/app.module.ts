@@ -12,6 +12,7 @@ import { MaterialModule } from './shared/material/material.module';
 import { BookPageComponent } from './components/book-page/book-page.component';
 import { FetchBookDataService } from './services/fetch-book-data.service';
 import { ResultsSidebarComponent } from './components/results-sidebar/results-sidebar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routes: Route[] = [
   { path: 'results', component: ResultsSidebarComponent },
@@ -25,6 +26,7 @@ const routes: Route[] = [
     NavbarComponent,
     BookPageComponent,
     ResultsSidebarComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
