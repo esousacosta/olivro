@@ -3,17 +3,9 @@
     No book found for "{{ searchCriteria }}" search criteria!
   </div>
   <div class="row">
-    <div
-      class="card col-sm-4 book-card"
-      *ngFor="let book of dataSourceConn$ | async"
-    >
-      <img
-        src="{{ book.imgUrl }}"
-        class="card-img-top"
-        alt="book's cover"
-        routerLink="/results/{{ book.isbn }}"
-      />
-      <div class="card-header" routerLink="/results/{{ book.isbn }}">
+    <div class="card col-sm-4 book-card" *ngFor="let book of dataSourceConn$ | async">
+      <img src="{{ book.imgUrl }}" class="card-img-top" alt="book's cover" routerLink="/results/{{ book.isbn }}" />
+      <div class="card-header">
         {{ book.title }}
       </div>
       <ul class="list-group list-group-flush">
@@ -21,13 +13,8 @@
         <li class="list-group-item">R$ {{ book.price }}</li>
       </ul>
     </div>
-    <mat-paginator
-      #paginator
-      [pageSize]="12"
-      [pageSizeOptions]="[6, 12, 24, 48]"
-      showFirstLastButtons
-      aria-label="Select page of periodic elements"
-    >
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 40, 80]" showFirstLastButtons
+      aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
 </div>

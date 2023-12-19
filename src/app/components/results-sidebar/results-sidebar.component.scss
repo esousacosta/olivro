@@ -1,3 +1,10 @@
+// This is needed to prevent an auto
+// margin of 260px from being added,
+// creating a 20px gap between sidebar
+// and content
+mat-sidenav-content {
+  margin-left: 240px !important;
+}
 .olv-sidebar-container {
   flex: 1;
   height: 100%;

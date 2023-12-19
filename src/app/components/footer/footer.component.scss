@@ -2,7 +2,18 @@ mat-toolbar {
   height: fit-content;
 }
 
+.footer-logo {
+  margin-left: auto;
+}
+
 .footer-img {
   width: 150px;
   height: 150px;
+}
+
+.about-us {
+  > div {
+    padding-left: 15px;
+    font-size: 0.8em;
+  }
 }
