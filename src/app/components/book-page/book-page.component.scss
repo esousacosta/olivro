@@ -1,5 +1,9 @@
+.container {
+  padding-top: 12px;
+}
 // The book cover ratio is 1.5:1 (height x width)
 .book-card {
+  align-items: center;
   img {
     max-width: 267px;
     align-self: center;
