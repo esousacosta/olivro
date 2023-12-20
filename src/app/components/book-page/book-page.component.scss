@@ -1,19 +1,26 @@
 // The book cover ratio is 1.5:1 (height x width)
 .book-card {
-    max-width: 280px;
-
-    img {
-        max-width: 267px;
-        align-self: center;
-    }
+  img {
+    max-width: 267px;
+    align-self: center;
+  }
 }
 
 .book-card img {
-    max-height: 400px;
+  max-height: 400px;
+}
+
+.table-wrapper {
+  margin-left: auto;
 }
 
 table {
-  width: 100%;
+  border: rgb(175, 173, 173) solid 1px;
+
+  .mat-column-offer {
+    width: 180px;
+  }
+
   a {
     text-decoration: none;
     color: inherit;
