@@ -44,46 +44,29 @@ export class ResultsSidebarComponent {
   private _sliderMaxValue: number = 500;
   private _minSelectedPrice: number = 0;
   private _maxSelectedPrice: number = 500;
-  private _priceCheckBoxes: Map<PriceCategory, PriceCheckBox> = new Map<
-    number,
-    PriceCheckBox
-  >([
-    [
-      PriceCategory.zeroToFifty,
-      {
-        checked: false,
-        priceRange: { min: 0, max: 50 },
-      },
-    ],
-    [
-      PriceCategory.fiftyToHundred,
-      {
-        checked: false,
-        priceRange: { min: 50, max: 100 },
-      },
-    ],
-    [
-      PriceCategory.hundredToHundredFifty,
-      {
-        checked: false,
-        priceRange: { min: 100, max: 150 },
-      },
-    ],
-    [
-      PriceCategory.hundredFiftyToTwoHundred,
-      {
-        checked: false,
-        priceRange: { min: 150, max: 200 },
-      },
-    ],
-    [
-      PriceCategory.twoHundredAndMore,
-      {
-        checked: false,
-        priceRange: { min: 200, max: 500 },
-      },
-    ],
-  ]);
+  priceCheckBoxes: PriceCheckBox[] = [
+    {
+      checked: false,
+      priceRange: { min: 0, max: 49.99 },
+    },
+    {
+      checked: false,
+      priceRange: { min: 50, max: 99.99 },
+    },
+    {
+      checked: false,
+      priceRange: { min: 100, max: 149.99 },
+    },
+    {
+      checked: false,
+      priceRange: { min: 150, max: 199.99 },
+    },
+    {
+      checked: false,
+      priceRange: { min: 200, max: 500 },
+    },
+  ];
+
   libraryCheckBoxes: LibraryCheckBox[] = [
     new LibraryCheckBox('Livraria BSM'),
     new LibraryCheckBox('Livraria Senso Incomum'),
@@ -113,26 +96,13 @@ export class ResultsSidebarComponent {
     this._maxSelectedPrice = iMaxValue;
   }
 
-  filterPriceByCheckbox($event: MatCheckboxChange, iId: PriceCategory) {
-    if ($event.checked) {
-      const checkBox = this._priceCheckBoxes.get(iId);
-      if (checkBox) {
-        checkBox.checked = true;
-      }
-    } else {
-      const checkBox = this._priceCheckBoxes.get(iId);
-      if (checkBox) {
-        checkBox.checked = false;
-      }
-    }
-    console.log(this._priceCheckBoxes);
-  }
-
   applyFilters() {
     this.bookListComponent.setUpResultsData(
       this.bookFilter.applyFilters(
         this.bookListComponent.books,
-        [],
+        this.priceCheckBoxes
+          .filter((priceCheckBox) => priceCheckBox.checked)
+          .map((priceCheckBox) => priceCheckBox.priceRange),
         this.libraryCheckBoxes
           .filter((libraryCheckBok) => libraryCheckBok.checked)
           .map((libraryCheckBox) => libraryCheckBox.libraryName)

@@ -28,7 +28,6 @@ export class FetchBookDataService {
     this.searchCriteria = iBookTitle;
     return this.http.get<Book[]>(this.serverUrl + iBookTitle).pipe(
       tap((data) => {
-        // console.log('Service fetched books: ', JSON.stringify(data));
         this.bookData$.next(data);
         this.latestSearchResults = data;
       }),
