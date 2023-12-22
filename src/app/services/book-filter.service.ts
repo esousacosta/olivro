@@ -46,14 +46,16 @@ export class BookFilterService {
     iPriceCategories: PriceRange[],
     iLibraryNames: string[]
   ): Book[] {
-    if (!iLibraryNames.length) {
+    if (!iLibraryNames.length && !iPriceCategories.length) {
       return this.filterDuplicateBooks(iBooks);
     }
+    let isLibraryNamesFilterSet: boolean = Boolean(iLibraryNames.length);
+    console.log(isLibraryNamesFilterSet);
     let filteredBooks: Book[] = [];
     let libraryNamesSet: Set<string> = new Set<string>(iLibraryNames);
     filteredBooks.push(
       ...iBooks.filter((book) => {
-        if (!libraryNamesSet.has(book.library)) {
+        if (isLibraryNamesFilterSet && !libraryNamesSet.has(book.library)) {
           return false;
         }
         for (let priceRange of iPriceCategories) {
@@ -65,6 +67,13 @@ export class BookFilterService {
         return false;
       })
     );
-    return filteredBooks;
+    // This is necessary for the case where we filter only
+    // By price, thus leaving several instances of a book
+    // (one for each book store) that pass the price check.
+    if (isLibraryNamesFilterSet) {
+      return filteredBooks;
+    }
+
+    return this.filterDuplicateBooks(filteredBooks);
   }
 }

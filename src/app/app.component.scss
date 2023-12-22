@@ -1,5 +1,6 @@
 .card-body {
   padding: 0;
+  display: flex;
 }
 
 .container {
@@ -10,8 +11,13 @@
   min-height: 100vh;
   display: inline-flex;
   flex-direction: column;
+  background-color: white;
 }
 
 .page-content {
   flex: 1;
+}
+
+router-outlet + ::ng-deep * {
+  min-width: 100%;
 }
