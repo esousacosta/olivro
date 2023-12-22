@@ -47,22 +47,15 @@ export class BookFilterService {
     iLibraryNames: string[]
   ): Book[] {
     if (!iLibraryNames.length) {
-      console.log(iBooks);
       return this.filterDuplicateBooks(iBooks);
     }
-    console.log(`Library names: ${JSON.stringify(iLibraryNames)}`);
     let filteredBooks: Book[] = [];
     let libraryNamesSet: Set<string> = new Set<string>(iLibraryNames);
-    console.log(libraryNamesSet);
     filteredBooks.push(
       ...iBooks.filter((book) => {
-        // Not working for now
-        // if (!(book.library in libraryNamesSet)) {
-        //   console.log(
-        //     `The book doesn't exist in book stores ${libraryNamesSet}`
-        //   );
-        //   return false;
-        // }
+        if (!libraryNamesSet.has(book.library)) {
+          return false;
+        }
         for (let priceRange of iPriceCategories) {
           let bookPrice: number = parseFloat(book.price.replace(/,/g, '.'));
           if (bookPrice >= priceRange.min && bookPrice <= priceRange.max) {
@@ -72,8 +65,6 @@ export class BookFilterService {
         return false;
       })
     );
-    console.log('FilteredBooks');
-    console.log(filteredBooks);
     return filteredBooks;
   }
 }
