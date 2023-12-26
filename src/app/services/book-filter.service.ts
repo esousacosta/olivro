@@ -43,6 +43,7 @@ export class BookFilterService {
 
   applyFilters(
     iBooks: Book[],
+    iSliderPrices: PriceRange,
     iPriceCategories: PriceRange[],
     iLibraryNames: string[]
   ): Book[] {
@@ -51,6 +52,9 @@ export class BookFilterService {
     }
     let isLibraryNamesFilterSet: boolean = Boolean(iLibraryNames.length);
     let isPriceCategoriesFilterSet: boolean = Boolean(iPriceCategories.length);
+    // TODO: change this hardcoded 0 and 500 to a shared variable
+    let areSliderValuesModified: boolean =
+      iSliderPrices.min != 0 || iSliderPrices.max != 500;
     let filteredBooks: Book[] = [];
     let libraryNamesSet: Set<string> = new Set<string>(iLibraryNames);
     filteredBooks.push(
@@ -64,6 +68,15 @@ export class BookFilterService {
             if (bookPrice >= priceRange.min && bookPrice <= priceRange.max) {
               return true;
             }
+          }
+          return false;
+        } else if (areSliderValuesModified) {
+          let bookPrice: number = parseFloat(book.price.replace(/,/g, '.'));
+          if (
+            bookPrice >= iSliderPrices.min &&
+            bookPrice <= iSliderPrices.max
+          ) {
+            return true;
           }
           return false;
         }

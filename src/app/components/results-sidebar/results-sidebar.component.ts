@@ -100,6 +100,7 @@ export class ResultsSidebarComponent {
     this.bookListComponent.setUpResultsData(
       this.bookFilter.applyFilters(
         this.bookListComponent.books,
+        { min: this._minSelectedPrice, max: this._maxSelectedPrice },
         this.priceCheckBoxes
           .filter((priceCheckBox) => priceCheckBox.checked)
           .map((priceCheckBox) => priceCheckBox.priceRange),
