@@ -13,6 +13,8 @@ import { BookPageComponent } from './components/book-page/book-page.component';
 import { FetchBookDataService } from './services/fetch-book-data.service';
 import { ResultsSidebarComponent } from './components/results-sidebar/results-sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SupabaseService } from './services/supabase.service';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 const routes: Route[] = [
   { path: 'results', component: ResultsSidebarComponent },
@@ -36,7 +38,7 @@ const routes: Route[] = [
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [FetchBookDataService],
+  providers: [FetchBookDataService, SupabaseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

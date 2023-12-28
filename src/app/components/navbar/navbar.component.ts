@@ -17,7 +17,6 @@ export class NavbarComponent {
 
   errorMessage: string = '';
   message: string = '';
-  private _sub!: Subscription;
 
   private navigateToResultsPage() {
     this.router.navigate(['/results']);
@@ -25,11 +24,11 @@ export class NavbarComponent {
 
   bookSearch(iBookTitle: string): void {
     this.navigateToResultsPage();
-    this._sub = this.bookService.getData(iBookTitle).subscribe({
-      next: (_) => {
+    this.bookService
+      .getData(iBookTitle)
+      .then((data) => {
         console.log('getData call successful!');
-      },
-      error: (err) => (this.errorMessage = err),
-    });
+      })
+      .catch((err) => console.log(err));
   }
 }

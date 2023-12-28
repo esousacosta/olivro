@@ -3,6 +3,7 @@ import { Book } from '../../models/book';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { SupabaseService } from './supabase.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,10 @@ export class FetchBookDataService {
   latestSearchResults!: Book[];
   searchCriteria: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private readonly supabase: SupabaseService
+  ) {}
 
   getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(this.bookUrl).pipe(
@@ -24,15 +28,19 @@ export class FetchBookDataService {
     );
   }
 
-  getData(iBookTitle: string): Observable<Book[]> {
+  async getData(iBookTitle: string): Promise<Book[]> {
     this.searchCriteria = iBookTitle;
-    return this.http.get<Book[]>(this.serverUrl + iBookTitle).pipe(
-      tap((data) => {
-        this.bookData$.next(data);
-        this.latestSearchResults = data;
-      }),
-      catchError(this.handleError)
-    );
+
+    try {
+      let data = await this.supabase.getBooksByTitle(iBookTitle);
+      let books: Book[] = JSON.parse(JSON.stringify(data));
+      this.bookData$.next(books);
+      this.latestSearchResults = books;
+      return books;
+    } catch (err) {
+      console.log(`Cascading supabase error: ${err}`);
+      return [];
+    }
   }
 
   private handleError(err: HttpErrorResponse) {
