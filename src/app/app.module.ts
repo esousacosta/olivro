@@ -15,6 +15,8 @@ import { ResultsSidebarComponent } from './components/results-sidebar/results-si
 import { FooterComponent } from './components/footer/footer.component';
 import { SupabaseService } from './services/supabase.service';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { NgChartsModule } from 'ng2-charts';
+import { PriceChartComponent } from './components/book-page/price-chart.component';
 
 const routes: Route[] = [
   { path: 'results', component: ResultsSidebarComponent },
@@ -29,6 +31,7 @@ const routes: Route[] = [
     BookPageComponent,
     ResultsSidebarComponent,
     FooterComponent,
+    PriceChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ const routes: Route[] = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MaterialModule,
+    NgChartsModule,
   ],
   providers: [FetchBookDataService, SupabaseService],
   bootstrap: [AppComponent],
