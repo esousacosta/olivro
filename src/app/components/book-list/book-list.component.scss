@@ -18,6 +18,39 @@ $grid-gutter-width: 30px !default;
   flex: 1;
 }
 
+.card-header-title {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+.card-image {
+  cursor: pointer;
+  max-width: 142px;
+  align-self: center;
+}
+
+.book-price {
+  font-size: 1.1rem;
+
+  .book-price-value {
+    font-weight: bold;
+  }
+
+  .book-price-currency {
+    font-weight: 500;
+  }
+}
+
+.card-body-region {
+  align-self: center;
+  align-items: center;
+}
+
+.book-authors {
+  text-align: center;
+}
+
 mat-paginator {
   margin-top: auto;
 }

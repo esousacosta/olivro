@@ -26,7 +26,7 @@ export class SupabaseService {
 
   async getBooksByTitle(iTitle: string): Promise<any[] | null> {
     let { data: books, error } = await this._supabase
-      .from('books')
+      .from('books_duplicate')
       .select('*')
       .ilike('title', '%' + iTitle + '%');
 

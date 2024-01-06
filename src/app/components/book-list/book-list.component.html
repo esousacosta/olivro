@@ -4,13 +4,19 @@
   </div>
   <div class="row">
     <div class="card col-sm-4 book-card" *ngFor="let book of dataSourceConn$ | async">
-      <img src="{{ book.imgUrl }}" class="card-img-top" alt="book's cover" routerLink="/results/{{ book.isbn }}" />
+      <img src="{{ book.imgUrl }}" class="card-img-top card-image" alt="book's cover"
+        routerLink="/results/{{ book.isbn }}" />
       <div class="card-header">
-        {{ book.title }}
+        <div class="card-header-title">{{ book.title }}</div>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{ book.authors }}</li>
-        <li class="list-group-item">R$ {{ book.price }}</li>
+      <ul class="list-group list-group-flush card-body-region">
+        <li class="list-group-item">
+          <div class="book-authors">{{ book.authors }}</div>
+        </li>
+        <li class="list-group-item">
+          <div class="book-price"><span class="book-price-currency">R$ </span> <span class="book-price-value">{{
+              book.price }}</span></div>
+        </li>
       </ul>
     </div>
   </div>

@@ -32,10 +32,14 @@ export class BookFilterService {
     let books: Book[] = [];
     let bookIsbns: Set<string> = new Set([]);
     iBooks.forEach((iBook) => {
-      if (bookIsbns.has(iBook.isbn)) {
+      // workaround until we have isbns again
+      if (bookIsbns.has(iBook.title)) {
         return;
       }
-      bookIsbns.add(iBook.isbn);
+      // if (bookIsbns.has(iBook.isbn)) {
+      //   return;
+      // }
+      bookIsbns.add(iBook.title);
       books.push(iBook);
     });
     return books;
@@ -47,6 +51,8 @@ export class BookFilterService {
     iPriceCategories: PriceRange[],
     iLibraryNames: string[]
   ): Book[] {
+    // TODO: Fix slider price picker not working if
+    // libraries filter not set
     if (!iLibraryNames.length && !iPriceCategories.length) {
       return this.filterDuplicateBooks(iBooks);
     }

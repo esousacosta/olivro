@@ -14,6 +14,22 @@ import { BaseChartDirective } from 'ng2-charts';
 // TODO: remove the dots on the data points so they behave
 // like idealo's
 export class PriceChartComponent {
+  public lineChartOptions: ChartConfiguration['options'] = {
+    plugins: {
+      legend: {
+        // Disable the toggling of the chart by clicking on the legend
+        onClick: function (event, legendItem, legend) {},
+        align: 'start',
+        labels: {
+          boxHeight: 5,
+          boxWidth: 0,
+          font: {
+            size: 14,
+          },
+        },
+      },
+    },
+  };
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
